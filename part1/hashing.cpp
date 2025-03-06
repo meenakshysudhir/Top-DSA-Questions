@@ -1,33 +1,27 @@
-//normal unoptimized hashing
+//hashing using unordered_map
+
 #include <iostream>
+#include <unordered_map>
 using namespace std;
-int main(){
-    int n;
-    cout << "Enter the array size :";
-    cin >> n;
-    int arr[13];
-    cout << "Enter the values: ";
-    for(int i = 0; i < n;i++){
+
+int main(void)
+{
+    cout << "Enter the length of array : ";
+    int len;
+    cin >> len;
+    cout << "Enter the elements : "; 
+    int arr[len];
+    for(int i = 0; i < len; i++)
+    {
         cin >> arr[i];
     }
-    int hash[13] = {0};
-    for(int i = 0 ; i < n;i++)
+    unordered_map<int,int> map;
+    for(int i =0 ; i < len;i++)
     {
-        hash[arr[i]]++;
+        map[arr[i]]++;
     }
-    int size;
-    cout << "Enter the query size : ";
-    cin >> size;
-    int q[13];
-    cout << "Enter query elements : ";
-    for(int i = 0; i < size;i++)
+    for(auto x:map)
     {
-        cin >> q[i];
-
+        cout << x.first <<" " << x.second << endl;
     }
-    for(int i = 0; i < size;i++)
-    {
-        cout << hash[q[i]] << " ";
-    }
-
 }
