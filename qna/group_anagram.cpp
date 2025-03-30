@@ -2,11 +2,11 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <map>
+#include <unordered_map>
 using namespace std;
 int main(void){
     vector<string> strs = {"act","pots","tops","cat","stop","hat"};
-    unordered_map<string,vector<string>> map;
+    unordered_map<string,vector<string>> m;
     string key;
     for(const auto& s : strs){
         vector<int> v(26,0) ;
@@ -15,15 +15,18 @@ int main(void){
         }
         key = to_string(v[0]);
         for(int i = 1; i < 26;i++){
-            key += ',' + to_string(v[i]);
+            key += "," + to_string(v[i]);
         }
-        map[key].push_back(s);
+        m[key].push_back(s);
     }
     vector<vector<string>> res;
-    for(const auto &key :map){
-        res.push_back(key.second);
+    for(const auto &pair :m){
+        res.push_back(pair.second);
     }
-    //for(auto i : res){
-    //    cout << i << " ";
-   // }
+    for(const auto& group: res){
+        for(const auto& word: group){
+            cout << word << "  ";
+        }
+        cout << endl;
+    }
 }
