@@ -1,12 +1,14 @@
 #include <everything.h>
 using namespace std;
 
-vector<int> nums = {1, 2, 2, 3, 3, 3};
-int k = 2;
+// vector<int> nums = {1, 2, 2, 3, 3, 3};
+vector<int> nums = {7, 7};
+int k = 1;
 vector<int> res;
 
-void sorting() {
+vector<int> sorting() {
   unordered_map<int, int> count;
+  vector<int> res;
   for (auto i : nums) {
     count[i]++;
   }
@@ -20,9 +22,11 @@ void sorting() {
     res.push_back(arr[i].second);
   }
   // Complexity is O(nlogn)
+  return res;
 }
 
-void minHeap() {
+vector<int> minHeap() {
+  vector<int> res;
   unordered_map<int, int> map;
   for (auto i : nums) {
     map[i]++;
@@ -41,47 +45,53 @@ void minHeap() {
     res.push_back(heap.top().second);
     heap.pop();
   }
+  return res;
 }
 
-void bucketSort() {
+vector<int> bucketSort() {
+  vector<int> res;
   unordered_map<int, int> count;
   for (auto &i : nums) {
     count[i]++;
   }
+
   vector<vector<int>> freq(
       nums.size() +
       1); // the maximum frequency if the same no. repeats thru the array
-  for (auto &i : count) {
+  for (auto i : count) {
     freq[i.second].push_back(i.first);
   }
 
-  for (int i = nums.size() - 1; i >= 0; i--) {
+  for (int i = freq.size() - 1; i >= 0; i--) {
     for (int j : freq[i]) {
       res.push_back(j);
+      // cout << j << endl;
       if (res.size() == k) {
-        return;
+        return res;
       }
       // res.push_back(j);
     }
   }
+  return res;
 }
 int main(void) {
   cout << "1 - Sorting\n2 - Minheap\n3 - BucketSort\nChoice : ";
   int ch;
+  vector<int> result;
   cin >> ch;
   switch (ch) {
 
   case 1:
-    sorting();
+    result = sorting();
     break;
   case 2:
-    minHeap();
+    result = minHeap();
     break;
   case 3:
-    bucketSort();
+    result = bucketSort();
     break;
   }
-  for (auto i : res) {
+  for (auto i : result) {
     cout << i << endl;
   }
 }
