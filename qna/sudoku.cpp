@@ -17,6 +17,28 @@ bool check3by3(vector<vector<char>> board, int row, int col) {
   }
   return true;
 }
+int checkrows(vector<vector<char>> board) {
+
+  unordered_map<int, unordered_set<char>> map;
+  unordered_map<int, int> count;
+  for (int i = 0; i < 9; i++) {
+    count[i] = 0;
+    for (int j = 0; j < 9; j++) {
+      if (board[i][j] != '.') {
+        map[i].insert(board[i][j]);
+        count[i]++;
+      }
+    }
+  }
+
+  int i = 0;
+  for (const auto &[row, elements] : map) {
+    if (count[row] != elements.size()) {
+      return 0;
+    }
+  }
+  return 1;
+}
 int main(void) {
   vector<vector<char>> board = {
       {'1', '2', '.', '.', '3', '.', '.', '.', '.'},
@@ -30,7 +52,8 @@ int main(void) {
       {'.', '.', '.', '.', '8', '.', '.', '7', '9'},
 
   };
-  int row = 0, col = 0, flag;
+  int row = 0, col = 0;
+  bool flag;
   // flag = check3by3(board, row, col);
   do {
     flag = check3by3(board, row, col);
@@ -41,17 +64,8 @@ int main(void) {
       col = 0;
     }
   } while (flag && row != 9);
-  // while (flag && row <= 6) {
-  //     if (col != 6) {
-  //       col += 3;
-  //     } else {
-  //       if (row != 6) {
-  //         row += 3;
-  //         col = 0;
-  //       }
-  //     }
-  //     flag = check3by3(board, row, col);
-  //   }
-
   cout << flag << endl;
+
+  int flagr = checkrows(board);
+  cout << flagr << endl;
 }
