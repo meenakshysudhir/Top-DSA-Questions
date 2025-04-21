@@ -9,6 +9,30 @@ void display_list(vector<vector<int>> list) {
     cout << endl;
   }
 }
+
+class Solution {
+public:
+  vector<int> bfs(int V, vector<vector<int>> list) {
+    int vis[V + 1] = {0};
+    vis[1] = 1;
+    vector<int> bfs;
+    queue<int> q;
+    q.push(1);
+    while (!q.empty()) {
+      int node = q.front();
+      q.pop();
+      bfs.push_back(node);
+      for (int i : list[node]) {
+        if (!vis[i]) {
+          q.push(i);
+          vis[i] = 1;
+        }
+      }
+    }
+    return bfs;
+  }
+};
+
 int main(void) {
   cout << "Enter the number of nodes and no. of edges : ";
   int n, m, u, v;
@@ -21,5 +45,10 @@ int main(void) {
     adj_list[u].push_back(v);
     adj_list[v].push_back(u);
   }
-  display_list(adj_list);
+  // display_list(adj_list);
+  Solution obj;
+  vector<int> res = obj.bfs(n, adj_list);
+  for (int i : res) {
+    cout << i << " ";
+  }
 }
