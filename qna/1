@@ -25,7 +25,7 @@ public:
   }
 
 private:
-  void bfs(vector<vector<char>> &islands, unordered_set<string> &visited, int r,
+  void bfs(vector<vector<char>> islands, unordered_set<string> &visited, int r,
            int c, int max_rows, int max_cols,
            vector<pair<int, int>> directions) {
     queue<pair<int, int>> q;
@@ -37,10 +37,10 @@ private:
       for (auto [rr, cc] : directions) {
         int row1 = row + rr;
         int col1 = col + cc;
-        if (row1 >= 0 && row1 < max_rows && col1 >= 0 && col1 < max_cols &&
-            islands[row1][col1] == '1' &&
+        if (islands[row1][col1] == '1' &&
             visited.find(to_string(row1) + "," + to_string(col1)) ==
-                visited.end()) {
+                visited.end() &&
+            row1 >= 0 && row1 < max_rows && col1 >= 0 && col1 < max_cols) {
           q.push({row1, col1});
           visited.insert(to_string(row1) + "," + to_string(col1));
         }
@@ -55,6 +55,5 @@ int main(void) {
                                {'0', '0', '0', '0', '0'}};
 
   Solution obj;
-  int num = obj.numIslands(grid);
-  cout << num;
+  cout << obj.numIslands(grid);
 }
