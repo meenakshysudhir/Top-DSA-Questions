@@ -10,7 +10,7 @@ public:
     for (int r = 0; r < s.size(); r++) {
       char c = s[r];
       map[c]++;
-      if (map[c] > 1) {
+      while (map[c] > 1) {
         map[s[l]]--;
         l++;
       }
