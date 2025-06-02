@@ -1,0 +1,54 @@
+#include <everything.h>
+#include <string.h>
+using namespace std;
+
+class Solution {
+  void getMap(unordered_map<char, int> &count, string t) {
+    if (count.empty()) {
+      for (auto i : t) {
+        count[i]++;
+      }
+    }
+  }
+
+public:
+  string getAns(string s, string t) {
+
+    unordered_map<char, int> count;
+    int l = 0, minLen = s.size();
+    string res;
+    int minWindow[2] = {0, INT_MAX};
+    for (auto i : t) {
+      count[i]++;
+    }
+    for (int r = 0; r < s.size(); r++) {
+      if (count.find(s[r]) != count.end()) {
+        count[s[r]]--;
+        if (count[s[r]] == 0) {
+          count.erase(s[r]);
+        }
+      }
+      if (count.empty()) {
+        // minLen = min(minLen,res);
+        if (r - l < minWindow[1] - minWindow[0]) {
+          minWindow[0] = l;
+          minWindow[1] = r;
+        }
+        res = s.substr(l, r - l + 1);
+        while ((l < r) && t.find(s[l]) == string::npos) {
+          l++;
+        }
+        if (t.find(s[l]) != npos) {
+          count[l]++;
+        }
+      }
+    }
+    return minWindow[1] >= s.length ? "" : res;
+  }
+};
+
+int main(void) {
+  Solution obj;
+  string s = "ADOBECODEBANC", t = "ABC";
+  cout << obj.getAns(s, t) << endl;
+}
