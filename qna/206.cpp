@@ -15,6 +15,18 @@ public:
     }
     return prev;
   }
+  ListNode *reverseListbyR(ListNode *head) {
+    // using recursion
+
+    ListNode *newHead = head;
+
+    if (head->next != NULL) {
+      newHead = reverseListbyR(head->next);
+      head->next->next = head;
+    }
+    head->next = nullptr;
+    return newHead;
+  }
 };
 
 int main(void) { Solution obj; }

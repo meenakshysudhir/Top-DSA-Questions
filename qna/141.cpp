@@ -1,0 +1,38 @@
+#include <everything.h>
+using namespace std;
+
+class listNode {
+public:
+  bool hasCycle(ListNode *head) {
+
+    ListNode *slow = head, *fast = head;
+
+    while (fast && fast->next) {
+
+      fast = fast->next->next;
+      slow = slow->next;
+      if (slow == fast) {
+        return true;
+      }
+    }
+    return false;
+  }
+  int getStartofCycle(ListNode *head) {
+    ListNode *slow = head, *fast = head;
+
+    while (fast && fast->next) {
+      fast = fast->next->next;
+      slow = slow->next;
+      if (slow == fast) {
+        slow = head;
+        while (slow != fast) {
+          slow = slow->next;
+          fast = fast->next;
+        }
+        return slow;
+      }
+    }
+  }
+};
+
+int main(void) { Solution obj; }
