@@ -12,10 +12,15 @@ struct Node{
         lc = rc = nullptr;
     }
 };
+int maxDiameter = 0;
 int findDiameter(Node* root){
     if(!root) return 0;
 
-    return 1 + max(findDiameter(root ->lc),findDiameter(root->rc));
+    int left = findDiameter(root -> lc);
+    int right = findDiameter(root -> rc);
+    maxDiameter = max(maxDiameter,left + right);
+    return 1 + max(left,right);
+
 }
 int main(void){
     Node * node = new Node(1);
